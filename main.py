@@ -11,11 +11,12 @@ class TextData(BaseModel):
 # Welcome Note
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the API! Customized for [Your Name]"}
+    return {"message": "Welcome to Jennifer's Python API!"}
 
-# FastAPI endpoint to accept POST request with a JSON body containing a single field "text"
+# FastAPI validates the JSON body against TextData, which requires a string "text" field.
 @app.post("/generate/")
 def generate(data: TextData):
-    # Generate a checksum of the text
+    """Accept JSON containing text and return its MD5 checksum."""
+    # Encode the text and represent its MD5 digest as a hexadecimal string.
     checksum = hashlib.md5(data.text.encode()).hexdigest()
     return {"checksum": checksum}
